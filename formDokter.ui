@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>648</width>
+    <height>529</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>90</y>
+     <width>431</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="iDPemeriksaLabel">
+      <property name="text">
+       <string>ID Pemeriksa</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="Editid"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="namaPemeriksaLabel">
+      <property name="text">
+       <string>Nama Pemeriksa</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="EditNama"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="jabatanLabel">
+      <property name="text">
+       <string>Jabatan</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="cmbJabatan">
+      <item>
+       <property name="text">
+        <string>Kepala Puskesmas</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dokter Umum</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dokter Gigi</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dokter Spesialis Anak</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dokter Spesialis Kandungan</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="btnSimpan">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>270</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Simpan</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnUbah">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>270</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Ubah</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnHapus">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>270</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Hapus</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>310</y>
+     <width>521</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <attribute name="horizontalHeaderMinimumSectionSize">
+    <number>34</number>
+   </attribute>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>173</number>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>ID Pemeriksa</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Nama Pemeriksa</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Jabatan</string>
+    </property>
+   </column>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

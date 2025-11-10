@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Main</class>
+ <widget class="QMainWindow" name="Main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Main</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuHalaman_Aplikasi">
+    <property name="title">
+     <string>Halaman Aplikasi</string>
+    </property>
+    <addaction name="actionDokter"/>
+    <addaction name="actionPasien"/>
+    <addaction name="actionPoliKlinik"/>
+    <addaction name="actionJadwal"/>
+   </widget>
+   <addaction name="menuHalaman_Aplikasi"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionDokter">
+   <property name="text">
+    <string>Dokter</string>
+   </property>
+  </action>
+  <action name="actionPasien">
+   <property name="text">
+    <string>Pasien</string>
+   </property>
+  </action>
+  <action name="actionPoliKlinik">
+   <property name="text">
+    <string>PoliKlinik</string>
+   </property>
+  </action>
+  <action name="actionJadwal">
+   <property name="text">
+    <string>Jadwal</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
