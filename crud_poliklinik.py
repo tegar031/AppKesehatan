@@ -13,63 +13,55 @@ class crud:
     # ====================================
     # SIMPAN
     # ====================================
-    def simpanPasien(self, nama, alamat, jk, tgl, tmp, hp, jenis):
+    def simpanPoli(self, nama, ket):
         cur = self.koneksi.cursor()
-        sql = """
-            INSERT INTO pasien(nama_pasien, alamat, jenis_kelamin, tgl_lahir, tmp_lahir, no_hp, jenis_pasien)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """
-        cur.execute(sql, (nama, alamat, jk, tgl, tmp, hp, jenis))
+        sql = "INSERT INTO poliklinik(nama_poli, keterangan) VALUES (%s, %s)"
+        cur.execute(sql, (nama, ket))
         self.koneksi.commit()
         cur.close()
 
     # ====================================
     # UBAH
     # ====================================
-    def ubahPasien(self, idp, nama, alamat, jk, tgl, tmp, hp, jenis):
+    def ubahPoli(self, id_poli, nama, ket):
         cur = self.koneksi.cursor()
         sql = """
-            UPDATE pasien
-            SET nama_pasien=%s, alamat=%s, jenis_kelamin=%s, tgl_lahir=%s,
-                tmp_lahir=%s, no_hp=%s, jenis_pasien=%s
-            WHERE id_pasien=%s
+            UPDATE poliklinik
+            SET nama_poli=%s, keterangan=%s
+            WHERE id_poli=%s
         """
-        cur.execute(sql, (nama, alamat, jk, tgl, tmp, hp, jenis, idp))
+        cur.execute(sql, (nama, ket, id_poli))
         self.koneksi.commit()
         cur.close()
 
     # ====================================
     # HAPUS
     # ====================================
-    def hapusPasien(self, idp):
+    def hapusPoli(self, id_poli):
         cur = self.koneksi.cursor()
-        sql = "DELETE FROM pasien WHERE id_pasien=%s"
-        cur.execute(sql, (idp,))
+        sql = "DELETE FROM poliklinik WHERE id_poli=%s"
+        cur.execute(sql, (id_poli,))
         self.koneksi.commit()
         cur.close()
 
     # ====================================
     # TAMPIL
     # ====================================
-    def tampilDataPasien(self):
+    def tampilDataPoli(self):
         cur = self.koneksi.cursor(dictionary=True)
-        sql = "SELECT * FROM pasien ORDER BY id_pasien ASC"
+        sql = "SELECT * FROM poliklinik ORDER BY id_poli ASC"
         cur.execute(sql)
         return cur.fetchall()
 
     # ====================================
     # CARI
     # ====================================
-    def cariDataPasien(self, cari):
+    def cariDataPoli(self, cari):
         cur = self.koneksi.cursor(dictionary=True)
         like = f"%{cari}%"
         sql = """
-            SELECT * FROM pasien
-            WHERE id_pasien LIKE %s
-            OR nama_pasien LIKE %s
-            OR alamat LIKE %s
-            OR jenis_kelamin LIKE %s
-            OR jenis_pasien LIKE %s
+            SELECT * FROM poliklinik
+            WHERE id_poli LIKE %s OR nama_poli LIKE %s OR keterangan LIKE %s
         """
-        cur.execute(sql, (like, like, like, like, like))
+        cur.execute(sql, (like, like, like))
         return cur.fetchall()

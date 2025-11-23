@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QTableWidgetItem
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile
 from crud_dokter import crud
@@ -16,53 +16,92 @@ class form_dokter(QWidget):
         self.mycrud = crud()
 
         # Event tombol
-        self.formDokter.btnSimpan.clicked.connect(self.doSimpanAnggota)
-        self.formDokter.btnUbah.clicked.connect(self.doUbahAnggota)
-        self.formDokter.btnHapus.clicked.connect(self.doHapusAnggota)
+        self.formDokter.btnSimpan.clicked.connect(self.doSimpanDokter)
+        self.formDokter.btnUbah.clicked.connect(self.doUbahDokter)
+        self.formDokter.btnHapus.clicked.connect(self.doHapusDokter)
+        self.formDokter.lineCari.textChanged.connect(self.filterDataDokter)
 
-        # Klik tabel → isi form
+        # Klik tabel
         self.formDokter.tableWidget.cellClicked.connect(self.getDataFromTable)
 
-        self.loadData()
+        # Load awal
+        self.tampilDataDokter()
         self.show()
 
-    # TAMPIL DATA
-    def loadData(self):
-        data = self.mycrud.tampilDokter()
+    # ===================================================
+    # TAMPILKAN DATA
+    # ===================================================
+    def tampilDataDokter(self):
         table = self.formDokter.tableWidget
         table.setRowCount(0)
 
-        for row_number, row_data in enumerate(data):
-            table.insertRow(row_number)
-            for column_number, column_data in enumerate(row_data):
-                table.setItem(row_number, column_number, QTableWidgetItem(str(column_data)))
+        data = self.mycrud.TampilDataDokter()  # <<< SAMA DENGAN CRUD
 
-    # SIMPAN DATA
-    def doSimpanAnggota(self):
-        tempnama = self.formDokter.EditNama.text()
-        tempjabatan = self.formDokter.cmbJabatan.currentText()
-        self.mycrud.simpanDokter(tempnama, tempjabatan)
-        self.loadData()
+        for i, baris in enumerate(data):
+            table.insertRow(i)
+            table.setItem(i, 0, QTableWidgetItem(str(baris["id_pemeriksa"])))
+            table.setItem(i, 1, QTableWidgetItem(baris["nama_pemeriksa"]))
+            table.setItem(i, 2, QTableWidgetItem(baris["jabatan"]))
 
-    # PILIH DATA PADA TABEL → TAMPIL DI FORM
+    # ===================================================
+    # FILTER DATA
+    # ===================================================
+    def filterDataDokter(self):
+        varCari = self.formDokter.lineCari.text()
+        table = self.formDokter.tableWidget
+        table.setRowCount(0)
+
+        data = self.mycrud.cariDataDokter(varCari)   # <<< SAMA DENGAN CRUD
+
+        for i, baris in enumerate(data):
+            table.insertRow(i)
+            table.setItem(i, 0, QTableWidgetItem(str(baris["id_pemeriksa"])))
+            table.setItem(i, 1, QTableWidgetItem(baris["nama_pemeriksa"]))
+            table.setItem(i, 2, QTableWidgetItem(baris["jabatan"]))
+
+    # ===================================================
+    # PILIH DATA TABEL
+    # ===================================================
     def getDataFromTable(self, row, column):
         table = self.formDokter.tableWidget
         self.formDokter.Editid.setText(table.item(row, 0).text())
         self.formDokter.EditNama.setText(table.item(row, 1).text())
         self.formDokter.cmbJabatan.setCurrentText(table.item(row, 2).text())
 
+    # ===================================================
+    # SIMPAN DATA
+    # ===================================================
+    def doSimpanDokter(self):
+        tempnama = self.formDokter.EditNama.text()
+        tempjabatan = self.formDokter.cmbJabatan.currentText()
+
+        self.mycrud.simpanDokter(tempnama, tempjabatan)
+
+        QMessageBox.information(None, "Informasi", "Data berhasil disimpan")
+        self.tampilDataDokter()
+
+    # ===================================================
     # UBAH DATA
-    def doUbahAnggota(self):
+    # ===================================================
+    def doUbahDokter(self):
         tempid = self.formDokter.Editid.text()
         tempnama = self.formDokter.EditNama.text()
         tempjabatan = self.formDokter.cmbJabatan.currentText()
-        if tempid != "":
-            self.mycrud.ubahDokter(tempid, tempnama, tempjabatan)
-            self.loadData()
 
+        if tempid != "":
+            self.mycrud.editDokter(tempid, tempnama, tempjabatan)
+
+            QMessageBox.information(None, "Informasi", "Data berhasil diubah")
+            self.tampilDataDokter()
+
+    # ===================================================
     # HAPUS DATA
-    def doHapusAnggota(self):
+    # ===================================================
+    def doHapusDokter(self):
         tempid = self.formDokter.Editid.text()
+
         if tempid != "":
             self.mycrud.hapusDokter(tempid)
-            self.loadData()
+
+            QMessageBox.information(None, "Informasi", "Data berhasil dihapus")
+            self.tampilDataDokter()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>694</width>
-    <height>616</height>
+    <width>662</width>
+    <height>573</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,67 +17,67 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>90</y>
-     <width>521</width>
+     <y>100</y>
+     <width>481</width>
      <height>131</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
-     <widget class="QLabel" name="iDPemeriksaLabel">
+     <widget class="QLabel" name="iDPoliklinikLabel">
       <property name="text">
-       <string>ID Pemeriksa</string>
+       <string>ID Poliklinik</string>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="Editid"/>
+     <widget class="QLineEdit" name="EditPoli"/>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="namaPemeriksaLabel">
+     <widget class="QLabel" name="namaPoliklinikLabel">
       <property name="text">
-       <string>Nama Pemeriksa</string>
+       <string>Nama Poliklinik</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="EditNama"/>
+     <widget class="QComboBox" name="cmbPoli">
+      <item>
+       <property name="text">
+        <string>Pelayanan konsultasi dan administrasi</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pelayanan kesehatan dasar umum</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pelayanan kesehatan gigi dan mulut</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pelayanan kesehatan anak (pediatri)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pelayanan obstetri dan ginekologi</string>
+       </property>
+      </item>
+     </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="jabatanLabel">
+     <widget class="QLabel" name="keteranganLabel">
       <property name="text">
-       <string>Jabatan</string>
+       <string>Keterangan</string>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QComboBox" name="cmbJabatan">
-      <item>
-       <property name="text">
-        <string>Kepala Puskesmas</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Dokter Umum</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Dokter Gigi</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Dokter Spesialis Anak</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Dokter Spesialis Kandungan</string>
-       </property>
-      </item>
-     </widget>
+     <widget class="QLineEdit" name="EditKeterangan"/>
     </item>
    </layout>
   </widget>
@@ -85,7 +85,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>240</y>
+     <y>270</y>
      <width>90</width>
      <height>29</height>
     </rect>
@@ -97,8 +97,8 @@
   <widget class="QPushButton" name="btnUbah">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>240</y>
+     <x>280</x>
+     <y>270</y>
      <width>90</width>
      <height>29</height>
     </rect>
@@ -110,8 +110,8 @@
   <widget class="QPushButton" name="btnHapus">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>240</y>
+     <x>420</x>
+     <y>270</y>
      <width>90</width>
      <height>29</height>
     </rect>
@@ -123,40 +123,37 @@
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>340</y>
-     <width>521</width>
+     <x>80</x>
+     <y>350</y>
+     <width>491</width>
      <height>192</height>
     </rect>
    </property>
-   <attribute name="horizontalHeaderMinimumSectionSize">
-    <number>34</number>
-   </attribute>
    <attribute name="horizontalHeaderDefaultSectionSize">
-    <number>173</number>
+    <number>163</number>
    </attribute>
    <column>
     <property name="text">
-     <string>ID Pemeriksa</string>
+     <string>ID Poliklinik</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Nama Pemeriksa</string>
+     <string>Nama Poliklinik</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Jabatan</string>
+     <string>Keterangan</string>
     </property>
    </column>
   </widget>
   <widget class="QLineEdit" name="lineCari">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>290</y>
-     <width>521</width>
+     <x>82</x>
+     <y>310</y>
+     <width>491</width>
      <height>28</height>
     </rect>
    </property>

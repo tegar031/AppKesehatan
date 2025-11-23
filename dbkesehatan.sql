@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Nov 2025 pada 09.42
+-- Waktu pembuatan: 23 Nov 2025 pada 19.00
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -56,6 +56,14 @@ CREATE TABLE `jadwal` (
   `hari` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `jadwal`
+--
+
+INSERT INTO `jadwal` (`id_jadwal`, `id_poli`, `id_pemeriksa`, `jam_mulai`, `jam_selesai`, `hari`) VALUES
+(4, 7, 16, '11:00:00', '14:00:00', 'Kamis'),
+(5, 8, 15, '10:00:00', '14:00:00', 'Jum\'at');
+
 -- --------------------------------------------------------
 
 --
@@ -78,7 +86,9 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `alamat`, `jenis_kelamin`, `tgl_lahir`, `tmp_lahir`, `no_hp`, `jenis_pasien`) VALUES
-(1, 'Zikry', 'Handil Bakti', 'Laki - Laki', '2004-07-10', 'Kapuas', 815234531, 'BPJS');
+(1, 'Zikry', 'Handil Bakti', 'Laki - Laki', '2004-07-10', 'Kapuas', 815234531, 'BPJS'),
+(4, 'Tegar', 'hksn', 'Laki - Laki', '0000-00-00', 'barabai', 2147483647, 'BPJS'),
+(5, 'Kitha', 'Sultan Adam', 'Laki - Laki', '2004-07-10', 'Kota Baru', 0, 'BPJS');
 
 -- --------------------------------------------------------
 
@@ -91,6 +101,18 @@ CREATE TABLE `poliklinik` (
   `nama_poli` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `poliklinik`
+--
+
+INSERT INTO `poliklinik` (`id_poli`, `nama_poli`, `keterangan`) VALUES
+(3, 'Pelayanan konsultasi dan administrasi', 'konsultasi'),
+(4, 'Poli Umum', 'Pemeriksaan kesehatan umum'),
+(5, 'Poli Gigi', 'Layanan kesehatan gigi dan mulut'),
+(6, 'Poli Anak', 'Pelayanan kesehatan anak'),
+(7, 'Poli Kulit', 'Pemeriksaan dan perawatan kulit'),
+(8, 'Pelayanan konsultasi dan administrasi', 'Pemeriksaan kesehatan umum');
 
 --
 -- Indexes for dumped tables
@@ -130,25 +152,25 @@ ALTER TABLE `poliklinik`
 -- AUTO_INCREMENT untuk tabel `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_pemeriksa` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pemeriksa` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pasien` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `poliklinik`
 --
 ALTER TABLE `poliklinik`
-  MODIFY `id_poli` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_poli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

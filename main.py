@@ -5,6 +5,8 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile
 from Dokter import form_dokter
 from Pasien import form_pasien
+from Poliklinik import form_poliklinik
+from Jadwal import form_jadwal
 
 class Main(QMainWindow):
     def __init__(self, parent=None):
@@ -24,6 +26,9 @@ class Main(QMainWindow):
 
         self.formUtama.actionDokter.triggered.connect(self.bukaDokter)
         self.formUtama.actionPasien.triggered.connect(self.bukaPasien)
+        self.formUtama.actionPoliKlinik.triggered.connect(self.bukaPoliklinik)
+        self.formUtama.actionJadwal.triggered.connect(self.bukaJadwal)
+
 
 
     def bukaDokter(self):
@@ -33,6 +38,14 @@ class Main(QMainWindow):
 
     def bukaPasien(self):
         self.buka = form_pasien()
+        self.buka.show()
+
+    def bukaPoliklinik(self):
+        self.buka = form_poliklinik()
+        self.buka.show()
+
+    def bukaJadwal(self):
+        self.buka = form_jadwal()
         self.buka.show()
 
 

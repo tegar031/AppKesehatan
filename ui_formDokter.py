@@ -23,10 +23,10 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(648, 529)
+        Form.resize(694, 616)
         self.formLayoutWidget = QWidget(Form)
         self.formLayoutWidget.setObjectName(u"formLayoutWidget")
-        self.formLayoutWidget.setGeometry(QRect(120, 90, 431, 131))
+        self.formLayoutWidget.setGeometry(QRect(90, 90, 521, 131))
         self.formLayout = QFormLayout(self.formLayoutWidget)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -67,13 +67,13 @@ class Ui_Form(object):
 
         self.btnSimpan = QPushButton(Form)
         self.btnSimpan.setObjectName(u"btnSimpan")
-        self.btnSimpan.setGeometry(QRect(160, 270, 90, 29))
+        self.btnSimpan.setGeometry(QRect(160, 240, 90, 29))
         self.btnUbah = QPushButton(Form)
         self.btnUbah.setObjectName(u"btnUbah")
-        self.btnUbah.setGeometry(QRect(290, 270, 90, 29))
+        self.btnUbah.setGeometry(QRect(290, 240, 90, 29))
         self.btnHapus = QPushButton(Form)
         self.btnHapus.setObjectName(u"btnHapus")
-        self.btnHapus.setGeometry(QRect(420, 270, 90, 29))
+        self.btnHapus.setGeometry(QRect(410, 240, 90, 29))
         self.tableWidget = QTableWidget(Form)
         if (self.tableWidget.columnCount() < 3):
             self.tableWidget.setColumnCount(3)
@@ -84,9 +84,12 @@ class Ui_Form(object):
         __qtablewidgetitem2 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(70, 310, 521, 192))
+        self.tableWidget.setGeometry(QRect(90, 340, 521, 192))
         self.tableWidget.horizontalHeader().setMinimumSectionSize(34)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(173)
+        self.lineCari = QLineEdit(Form)
+        self.lineCari.setObjectName(u"lineCari")
+        self.lineCari.setGeometry(QRect(90, 290, 521, 28))
 
         self.retranslateUi(Form)
 

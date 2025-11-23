@@ -23,10 +23,10 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(841, 636)
+        Form.resize(841, 662)
         self.formLayoutWidget = QWidget(Form)
         self.formLayoutWidget.setObjectName(u"formLayoutWidget")
-        self.formLayoutWidget.setGeometry(QRect(130, 40, 601, 303))
+        self.formLayoutWidget.setGeometry(QRect(40, 40, 751, 303))
         self.formLayout = QFormLayout(self.formLayoutWidget)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -143,8 +143,11 @@ class Ui_Form(object):
         __qtablewidgetitem7 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(7, __qtablewidgetitem7)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setGeometry(QRect(30, 420, 771, 192))
+        self.tableWidget.setGeometry(QRect(30, 450, 771, 192))
         self.tableWidget.horizontalHeader().setDefaultSectionSize(96)
+        self.lineCari = QLineEdit(Form)
+        self.lineCari.setObjectName(u"lineCari")
+        self.lineCari.setGeometry(QRect(32, 410, 771, 28))
 
         self.retranslateUi(Form)
 

@@ -16,106 +16,132 @@ class form_pasien(QWidget):
 
         self.mycrud = crud()
 
-        # Button Events
-        self.formPasien.btnSimpan.clicked.connect(self.doSimpanData)
-        self.formPasien.btnUbah.clicked.connect(self.doUbahData)
-        self.formPasien.btnHapus.clicked.connect(self.doHapusData)
+        # Tombol
+        self.formPasien.btnSimpan.clicked.connect(self.doSimpanPasien)
+        self.formPasien.btnUbah.clicked.connect(self.doUbahPasien)
+        self.formPasien.btnHapus.clicked.connect(self.doHapusPasien)
 
-        # Table click
+        # Pencarian
+        self.formPasien.lineCari.textChanged.connect(self.filterDataPasien)
+
+        # Klik tabel
         self.formPasien.tableWidget.cellClicked.connect(self.getDataFromTable)
 
-        self.loadData()
+        # Load data awal
+        self.tampilDataPasien()
         self.show()
 
-
-    def loadData(self):
-        data = self.mycrud.tampilPasien()
+    # ===================================================
+    # TAMPIL DATA
+    # ===================================================
+    def tampilDataPasien(self):
         table = self.formPasien.tableWidget
         table.setRowCount(0)
 
-        for row_number, row_data in enumerate(data):
-            table.insertRow(row_number)
-            for column_number, column_data in enumerate(row_data):
-                table.setItem(row_number, column_number, QTableWidgetItem(str(column_data)))
+        data = self.mycrud.tampilDataPasien()
 
+        for i, baris in enumerate(data):
+            table.insertRow(i)
+            table.setItem(i, 0, QTableWidgetItem(str(baris["id_pasien"])))
+            table.setItem(i, 1, QTableWidgetItem(baris["nama_pasien"]))
+            table.setItem(i, 2, QTableWidgetItem(baris["alamat"]))
+            table.setItem(i, 3, QTableWidgetItem(baris["jenis_kelamin"]))
+            table.setItem(i, 4, QTableWidgetItem(str(baris["tgl_lahir"])))
+            table.setItem(i, 5, QTableWidgetItem(baris["tmp_lahir"]))
+            table.setItem(i, 6, QTableWidgetItem(baris["no_hp"]))
+            table.setItem(i, 7, QTableWidgetItem(baris["jenis_pasien"]))
 
-    def doSimpanData(self):
-        tempnama = self.formPasien.EditNama.text().strip()
-        tempalamat = self.formPasien.EditAlamat.text().strip()
-        tempjekel = self.formPasien.cmbJekel.currentText()
-        temptgl = self.formPasien.EditDate.date().toString("yyyy-MM-dd")
-        temptempat = self.formPasien.EditLahir.text().strip()
-        tempphone = self.formPasien.EditPhone.text().strip()
-        tempjenis = self.formPasien.cmbPasien.currentText()
+    # ===================================================
+    # FILTER DATA
+    # ===================================================
+    def filterDataPasien(self):
+        varCari = self.formPasien.lineCari.text()
+        table = self.formPasien.tableWidget
+        table.setRowCount(0)
 
-        if tempnama == "" or tempalamat == "":
-            QMessageBox.warning(self, "Warning", "Nama dan Alamat tidak boleh kosong!")
-            return
+        data = self.mycrud.cariDataPasien(varCari)
 
-        self.mycrud.simpanPasien(tempnama, tempalamat, tempjekel,
-                                 temptgl, temptempat, tempphone, tempjenis)
+        for i, baris in enumerate(data):
+            table.insertRow(i)
+            table.setItem(i, 0, QTableWidgetItem(str(baris["id_pasien"])))
+            table.setItem(i, 1, QTableWidgetItem(baris["nama_pasien"]))
+            table.setItem(i, 2, QTableWidgetItem(baris["alamat"]))
+            table.setItem(i, 3, QTableWidgetItem(baris["jenis_kelamin"]))
+            table.setItem(i, 4, QTableWidgetItem(str(baris["tgl_lahir"])))
+            table.setItem(i, 5, QTableWidgetItem(baris["tmp_lahir"]))
+            table.setItem(i, 6, QTableWidgetItem(baris["no_hp"]))
+            table.setItem(i, 7, QTableWidgetItem(baris["jenis_pasien"]))
 
-        self.loadData()
-        self.resetForm()
-
-
-    def getDataFromTable(self, row):
+    # ===================================================
+    # GET DATA DARI TABEL
+    # ===================================================
+    def getDataFromTable(self, row, column):
         table = self.formPasien.tableWidget
 
-        self.formPasien.EditPasien.setText(table.item(row, 0).text())
-        self.formPasien.EditNama.setText(table.item(row, 1).text())
-        self.formPasien.EditAlamat.setText(table.item(row, 2).text())
+        self.formPasien.EditPasien.setText(table.item(row, 0).text())  # ID
+        self.formPasien.EditNama.setText(table.item(row, 1).text())    # Nama
+        self.formPasien.EditAlamat.setText(table.item(row, 2).text())  # Alamat
         self.formPasien.cmbJekel.setCurrentText(table.item(row, 3).text())
 
-        tgl = QDate.fromString(table.item(row, 4).text(), "yyyy-MM-dd")
+        # Tanggal lahir
+        tgl_str = table.item(row, 4).text()
+        tgl = QDate.fromString(tgl_str, "yyyy-MM-dd")
         if tgl.isValid():
             self.formPasien.EditDate.setDate(tgl)
 
+        # Tempat lahir
         self.formPasien.EditLahir.setText(table.item(row, 5).text())
+
+        # No HP
         self.formPasien.EditPhone.setText(table.item(row, 6).text())
+
+        # Jenis pasien
         self.formPasien.cmbPasien.setCurrentText(table.item(row, 7).text())
 
+    # ===================================================
+    # SIMPAN DATA
+    # ===================================================
+    def doSimpanPasien(self):
+        nama = self.formPasien.EditNama.text()
+        alamat = self.formPasien.EditAlamat.text()
+        jk = self.formPasien.cmbJekel.currentText()
+        tgl = self.formPasien.EditDate.date().toString("yyyy-MM-dd")
+        tmp = self.formPasien.EditLahir.text()
+        hp = self.formPasien.EditPhone.text()
+        jenis = self.formPasien.cmbPasien.currentText()
 
-    def doUbahData(self):
+        self.mycrud.simpanPasien(nama, alamat, jk, tgl, tmp, hp, jenis)
+
+        QMessageBox.information(None, "Informasi", "Data berhasil disimpan")
+        self.tampilDataPasien()
+
+    # ===================================================
+    # UBAH DATA
+    # ===================================================
+    def doUbahPasien(self):
+        tempid = self.formPasien.EditPasien.text()
+        nama = self.formPasien.EditNama.text()
+        alamat = self.formPasien.EditAlamat.text()
+        jk = self.formPasien.cmbJekel.currentText()
+        tgl = self.formPasien.EditDate.date().toString("yyyy-MM-dd")
+        tmp = self.formPasien.EditLahir.text()
+        hp = self.formPasien.EditPhone.text()
+        jenis = self.formPasien.cmbPasien.currentText()
+
+        if tempid != "":
+            self.mycrud.ubahPasien(tempid, nama, alamat, jk, tgl, tmp, hp, jenis)
+
+            QMessageBox.information(None, "Informasi", "Data berhasil diubah")
+            self.tampilDataPasien()
+
+    # ===================================================
+    # HAPUS DATA
+    # ===================================================
+    def doHapusPasien(self):
         tempid = self.formPasien.EditPasien.text()
 
-        if tempid == "":
-            QMessageBox.warning(self, "Error", "Pilih data pada tabel terlebih dahulu!")
-            return
+        if tempid != "":
+            self.mycrud.hapusPasien(tempid)
 
-        tempnama = self.formPasien.EditNama.text()
-        tempalamat = self.formPasien.EditAlamat.text()
-        tempjekel = self.formPasien.cmbJekel.currentText()
-        temptgl = self.formPasien.EditDate.date().toString("yyyy-MM-dd")
-        temptempat = self.formPasien.EditLahir.text()
-        tempphone = self.formPasien.EditPhone.text()
-        tempjenis = self.formPasien.cmbPasien.currentText()
-
-        self.mycrud.ubahPasien(tempid, tempnama, tempalamat, tempjekel,
-                               temptgl, temptempat, tempphone, tempjenis)
-
-        self.loadData()
-        self.resetForm()
-
-
-    def doHapusData(self):
-        tempid = self.formPasien.EditPasien.text()
-
-        if tempid == "":
-            QMessageBox.warning(self, "Error", "Pilih data yang ingin dihapus!")
-            return
-
-        self.mycrud.hapusPasien(tempid)
-        self.loadData()
-        self.resetForm()
-
-
-    def resetForm(self):
-        self.formPasien.EditPasien.clear()
-        self.formPasien.EditNama.clear()
-        self.formPasien.EditAlamat.clear()
-        self.formPasien.EditLahir.clear()
-        self.formPasien.EditPhone.clear()
-        self.formPasien.cmbJekel.setCurrentIndex(0)
-        self.formPasien.cmbPasien.setCurrentIndex(0)
-        self.formPasien.EditDate.setDate(QDate.currentDate())
+            QMessageBox.information(None, "Informasi", "Data berhasil dihapus")
+            self.tampilDataPasien()
