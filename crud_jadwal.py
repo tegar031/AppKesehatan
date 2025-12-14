@@ -1,5 +1,9 @@
 # crud_jadwal.py
 import mysql.connector
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.units import cm
 
 class crud_jadwal:   # ← NAMANYA HARUS crud_jadwal !!!
     def __init__(self):
@@ -61,3 +65,51 @@ class crud_jadwal:   # ← NAMANYA HARUS crud_jadwal !!!
         like = f"%{cari}%"
         c.execute(sql, (like, like, like, like))
         return c.fetchall()
+
+    def laporanSemuaJadwal(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("""
+            SELECT id_jadwal, id_poli, id_pemeriksa,
+                   jam_mulai, jam_selesai, hari
+            FROM jadwal
+        """)
+        data = cursor.fetchall()
+        cursor.close()
+
+        isidata = [[
+            "id_jadwal",
+            "id_poli",
+            "id_pemeriksa",
+            "jam_mulai",
+            "jam_selesai",
+            "hari"
+        ]]
+
+        for row in data:
+            isidata.append([
+                str(row[0]),
+                str(row[1]),
+                str(row[2]),
+                str(row[3]),
+                str(row[4]),
+                str(row[5])
+            ])
+
+        pdf = "laporan_jadwal_semua.pdf"
+        file = SimpleDocTemplate(pdf, pagesize=A4)
+
+        table = Table(
+            isidata,
+            colWidths=[3*cm, 3*cm, 4*cm, 3*cm, 3*cm, 3*cm]
+        )
+
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+
+        file.build([table])
+        return pdf

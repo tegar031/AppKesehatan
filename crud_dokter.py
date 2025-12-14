@@ -1,6 +1,12 @@
 # This Python file uses the following encoding: utf-8
 import mysql.connector
 
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.units import cm
+
+
 class crud:
     def __init__(self):
         self.koneksi = mysql.connector.connect(
@@ -68,3 +74,32 @@ class crud:
         like = f"%{cari}%"
         cekkursor.execute(sql, [like, like, like])
         return cekkursor.fetchall()
+
+    def laporanSemuaDokter(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT id_pemeriksa, nama_pemeriksa, jabatan FROM dokter")
+        data = cursor.fetchall()
+        cursor.close()
+
+        isidata = [["ID Pemeriksa", "Nama Pemeriksa", "Jabatan"]]
+        for row in data:
+            isidata.append([
+                str(row[0]),
+                str(row[1]),
+                str(row[2])
+            ])
+
+        pdf = "laporan_dokter_semua.pdf"
+        file = SimpleDocTemplate(pdf, pagesize=A4)
+
+        table = Table(isidata, colWidths=[4*cm, 6*cm, 6*cm])
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+
+        file.build([table])
+        return pdf

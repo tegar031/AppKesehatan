@@ -116,13 +116,13 @@ class Ui_Form(object):
 
         self.btnSimpan = QPushButton(Form)
         self.btnSimpan.setObjectName(u"btnSimpan")
-        self.btnSimpan.setGeometry(QRect(280, 370, 90, 29))
+        self.btnSimpan.setGeometry(QRect(190, 370, 90, 29))
         self.btnUbah = QPushButton(Form)
         self.btnUbah.setObjectName(u"btnUbah")
-        self.btnUbah.setGeometry(QRect(390, 370, 90, 29))
+        self.btnUbah.setGeometry(QRect(300, 370, 90, 29))
         self.btnHapus = QPushButton(Form)
         self.btnHapus.setObjectName(u"btnHapus")
-        self.btnHapus.setGeometry(QRect(500, 370, 90, 29))
+        self.btnHapus.setGeometry(QRect(410, 370, 90, 29))
         self.tableWidget = QTableWidget(Form)
         if (self.tableWidget.columnCount() < 8):
             self.tableWidget.setColumnCount(8)
@@ -148,6 +148,9 @@ class Ui_Form(object):
         self.lineCari = QLineEdit(Form)
         self.lineCari.setObjectName(u"lineCari")
         self.lineCari.setGeometry(QRect(32, 410, 771, 28))
+        self.btnCetak = QPushButton(Form)
+        self.btnCetak.setObjectName(u"btnCetak")
+        self.btnCetak.setGeometry(QRect(520, 370, 90, 29))
 
         self.retranslateUi(Form)
 
@@ -189,5 +192,6 @@ class Ui_Form(object):
         ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"No HandPhone", None));
         ___qtablewidgetitem7 = self.tableWidget.horizontalHeaderItem(7)
         ___qtablewidgetitem7.setText(QCoreApplication.translate("Form", u"Jenis Pasien", None));
+        self.btnCetak.setText(QCoreApplication.translate("Form", u"Cetak", None))
     # retranslateUi
 

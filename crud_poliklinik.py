@@ -1,4 +1,11 @@
+# This Python file uses the following encoding: utf-8
 import mysql.connector
+
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.units import cm
+
 
 class crud:
     def __init__(self):
@@ -10,58 +17,92 @@ class crud:
         )
         self.cursor = self.koneksi.cursor()
 
-    # ====================================
-    # SIMPAN
-    # ====================================
-    def simpanPoli(self, nama, ket):
-        cur = self.koneksi.cursor()
+    # =======================================================
+    # SIMPAN DATA
+    # =======================================================
+    def simpanPoli(self, nama, keterangan):
+        cekkursor = self.koneksi.cursor()
         sql = "INSERT INTO poliklinik(nama_poli, keterangan) VALUES (%s, %s)"
-        cur.execute(sql, (nama, ket))
+        cekkursor.execute(sql, (nama, keterangan))
         self.koneksi.commit()
-        cur.close()
+        cekkursor.close()
 
-    # ====================================
-    # UBAH
-    # ====================================
-    def ubahPoli(self, id_poli, nama, ket):
-        cur = self.koneksi.cursor()
+    # =======================================================
+    # EDIT / UBAH DATA
+    # =======================================================
+    def ubahPoli(self, id_poli, nama, keterangan):
+        cekkursor = self.koneksi.cursor()
         sql = """
             UPDATE poliklinik
             SET nama_poli=%s, keterangan=%s
             WHERE id_poli=%s
         """
-        cur.execute(sql, (nama, ket, id_poli))
+        cekkursor.execute(sql, (nama, keterangan, id_poli))
         self.koneksi.commit()
-        cur.close()
+        cekkursor.close()
 
-    # ====================================
-    # HAPUS
-    # ====================================
+    # =======================================================
+    # HAPUS DATA
+    # =======================================================
     def hapusPoli(self, id_poli):
-        cur = self.koneksi.cursor()
+        cekkursor = self.koneksi.cursor()
         sql = "DELETE FROM poliklinik WHERE id_poli=%s"
-        cur.execute(sql, (id_poli,))
+        cekkursor.execute(sql, (id_poli,))
         self.koneksi.commit()
-        cur.close()
+        cekkursor.close()
 
-    # ====================================
-    # TAMPIL
-    # ====================================
+    # =======================================================
+    # TAMPIL DATA
+    # =======================================================
     def tampilDataPoli(self):
-        cur = self.koneksi.cursor(dictionary=True)
+        cekkursor = self.koneksi.cursor(dictionary=True)
         sql = "SELECT * FROM poliklinik ORDER BY id_poli ASC"
-        cur.execute(sql)
-        return cur.fetchall()
+        cekkursor.execute(sql)
+        return cekkursor.fetchall()
 
-    # ====================================
-    # CARI
-    # ====================================
+    # =======================================================
+    # CARI DATA
+    # =======================================================
     def cariDataPoli(self, cari):
-        cur = self.koneksi.cursor(dictionary=True)
-        like = f"%{cari}%"
+        cekkursor = self.koneksi.cursor(dictionary=True)
         sql = """
             SELECT * FROM poliklinik
-            WHERE id_poli LIKE %s OR nama_poli LIKE %s OR keterangan LIKE %s
+            WHERE id_poli LIKE %s
+            OR nama_poli LIKE %s
+            OR keterangan LIKE %s
         """
-        cur.execute(sql, (like, like, like))
-        return cur.fetchall()
+        like = f"%{cari}%"
+        cekkursor.execute(sql, [like, like, like])
+        return cekkursor.fetchall()
+
+    # =======================================================
+    # LAPORAN PDF
+    # =======================================================
+    def laporanSemuaPoli(self):
+        cursor = self.koneksi.cursor()
+        cursor.execute("SELECT id_poli, nama_poli, keterangan FROM poliklinik")
+        data = cursor.fetchall()
+        cursor.close()
+
+        isidata = [["ID Poli", "Nama Poli", "Keterangan"]]
+        for row in data:
+            isidata.append([
+                str(row[0]),
+                str(row[1]),
+                str(row[2])
+            ])
+
+        pdf = "laporan_poliklinik_semua.pdf"
+        file = SimpleDocTemplate(pdf, pagesize=A4)
+
+        table = Table(isidata, colWidths=[4*cm, 8*cm, 8*cm])
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+
+        file.build([table])
+        return pdf

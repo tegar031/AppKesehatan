@@ -124,7 +124,7 @@
   <widget class="QPushButton" name="btnSimpan">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>110</x>
      <y>290</y>
      <width>90</width>
      <height>29</height>
@@ -137,7 +137,7 @@
   <widget class="QPushButton" name="btnUbah">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>250</x>
      <y>290</y>
      <width>90</width>
      <height>29</height>
@@ -150,7 +150,7 @@
   <widget class="QPushButton" name="btnHapus">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>390</x>
      <y>290</y>
      <width>90</width>
      <height>29</height>
@@ -212,6 +212,19 @@
      <string>Hari</string>
     </property>
    </column>
+  </widget>
+  <widget class="QPushButton" name="btnCetak">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>290</y>
+     <width>90</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cetak</string>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -2,6 +2,9 @@ from PySide6.QtWidgets import QWidget, QTableWidgetItem, QMessageBox
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, QTime
 from crud_jadwal import crud_jadwal
+import os
+import platform
+
 
 
 class form_jadwal(QWidget):
@@ -23,6 +26,8 @@ class form_jadwal(QWidget):
         self.form.btnUbah.clicked.connect(self.doUbah)
         self.form.btnHapus.clicked.connect(self.doHapus)
         self.form.lineCari.textChanged.connect(self.filterData)
+        self.form.btnCetak.clicked.connect(self.cetaklapJadwal)
+
 
         # Table click
         self.form.tableWidget.cellClicked.connect(self.getDataFromTable)
@@ -129,6 +134,25 @@ class form_jadwal(QWidget):
             return
 
         self.mycrud.deleteData(id_jadwal)
-
         QMessageBox.information(self, "Informasi", "Data berhasil dihapus")
         self.tampilData()
+
+
+    # ================= CETAK =================
+    def cetaklapJadwal(self):
+        try:
+            pdf = self.mycrud.laporanSemuaJadwal()
+            QMessageBox.information(self, "Sukses", f"Laporan dicetak:\n{pdf}")
+            self.bukaPDF(pdf)
+        except Exception as e:
+            QMessageBox.critical(self, "Error", str(e))
+
+
+    # ================= BUKA PDF =================
+    def bukaPDF(self, filename):
+        if platform.system() == "Windows":
+            os.startfile(filename)
+        elif platform.system() == "Darwin":
+            os.system(f'open "{filename}"')
+        else:
+            os.system(f'xdg-open "{filename}"')

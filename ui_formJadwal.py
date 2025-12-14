@@ -99,13 +99,13 @@ class Ui_Form(object):
 
         self.btnSimpan = QPushButton(Form)
         self.btnSimpan.setObjectName(u"btnSimpan")
-        self.btnSimpan.setGeometry(QRect(100, 290, 90, 29))
+        self.btnSimpan.setGeometry(QRect(110, 290, 90, 29))
         self.btnUbah = QPushButton(Form)
         self.btnUbah.setObjectName(u"btnUbah")
-        self.btnUbah.setGeometry(QRect(320, 290, 90, 29))
+        self.btnUbah.setGeometry(QRect(250, 290, 90, 29))
         self.btnHapus = QPushButton(Form)
         self.btnHapus.setObjectName(u"btnHapus")
-        self.btnHapus.setGeometry(QRect(550, 290, 90, 29))
+        self.btnHapus.setGeometry(QRect(390, 290, 90, 29))
         self.lineCari = QLineEdit(Form)
         self.lineCari.setObjectName(u"lineCari")
         self.lineCari.setGeometry(QRect(90, 350, 551, 28))
@@ -127,6 +127,9 @@ class Ui_Form(object):
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(90, 420, 551, 191))
         self.tableWidget.horizontalHeader().setDefaultSectionSize(93)
+        self.btnCetak = QPushButton(Form)
+        self.btnCetak.setObjectName(u"btnCetak")
+        self.btnCetak.setGeometry(QRect(520, 290, 90, 29))
 
         self.retranslateUi(Form)
 
@@ -164,5 +167,6 @@ class Ui_Form(object):
         ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"Jam Selesai", None));
         ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
         ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"Hari", None));
+        self.btnCetak.setText(QCoreApplication.translate("Form", u"Cetak", None))
     # retranslateUi
 
