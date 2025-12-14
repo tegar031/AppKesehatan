@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Nov 2025 pada 19.00
+-- Waktu pembuatan: 14 Des 2025 pada 15.26
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -77,7 +77,7 @@ CREATE TABLE `pasien` (
   `jenis_kelamin` char(11) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `tmp_lahir` varchar(255) NOT NULL,
-  `no_hp` int(15) NOT NULL,
+  `no_hp` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `jenis_pasien` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -86,9 +86,9 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `alamat`, `jenis_kelamin`, `tgl_lahir`, `tmp_lahir`, `no_hp`, `jenis_pasien`) VALUES
-(1, 'Zikry', 'Handil Bakti', 'Laki - Laki', '2004-07-10', 'Kapuas', 815234531, 'BPJS'),
-(4, 'Tegar', 'hksn', 'Laki - Laki', '0000-00-00', 'barabai', 2147483647, 'BPJS'),
-(5, 'Kitha', 'Sultan Adam', 'Laki - Laki', '2004-07-10', 'Kota Baru', 0, 'BPJS');
+(1, 'Zikry', 'Handil Bakti', 'Laki - Laki', '2004-07-10', 'Kapuas', '081352772890', 'BPJS'),
+(4, 'Tegar', 'hksn', 'Laki - Laki', '2000-01-01', 'barabai', '081352778321', 'BPJS'),
+(5, 'Kitha', 'Sultan Adam', 'Laki - Laki', '2004-07-10', 'Kota Baru', '081352882492', 'BPJS');
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,7 @@ ALTER TABLE `jadwal`
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pasien` int(111) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `poliklinik`
